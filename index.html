@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DATA VISUALIZATION CHALLANGE</title>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+
+    <script src="data/parallel_reservation_arrival.js"></script>
+    <script src="data/previous_cancellations.js"></script>
+    <script src="data/relation_total_stay_total_people.js"></script>
+    <script src="data/weekly_bookings_by_year.js"></script>
+    <script src="data/weekly_bookings_by_country.js"></script>
+    <script src="data/distribution_lead_time_cancelled_bookings.js"></script>
+    <script src="data/median_lead_time.js"></script>
+    <script src="data/distribution_lead_time_not_cancelled_bookings.js"></script>
+    <script src="data/distribution_lead_time_not_cancelled_bookings_long.js"></script>
+    <script src="data/mean_days_stay_month.js"></script>
+    <script src="data/table_top_total_people.js"></script>
+
+    <style>
+        body {
+            background-color: #0b0034;
+            background-image: url(data:image/png;base64,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);
+            background-size: 30px;
+            background-blend-mode: hard-light;
+
+        }
+
+        .page {
+            font-family: "Montserrat";
+            color: #ffffff;
+            height: calc(100vh - 4rem);
+            /* margin: 20px; */
+            padding: 20px;
+            /* border: 1px solid #ccc; */
+            /* box-shadow: 0 0 10px rgba(201, 201, 201, 0.4); */
+        }
+
+        .project-title {
+            font-size: 124px;
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            /* font-weight: bold; */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-title {
+            font-size: 18px;
+            /* font-weight: bold; */
+            margin-bottom: 10px;
+        }
+
+        .dashboard-description {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #A5E0FF;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button {
+            position: absolute;
+            /* text-align: center; */
+            bottom: 5%;
+            /* left: 50%; */
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #ffffff;
+            color: #0b0034;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .dashboard-container {
+            display: flex;
+            justify-content: space-between;
+            font-size: small;
+            margin-right: 20px;
+        }
+
+        .dashboard {
+            width: 48%;
+        }
+
+        .border-text {
+            border-style: dashed;
+            font-size: medium;
+            max-width: 250px;
+            border-color: white;
+            border-width: 2px;
+            padding: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Page 1: Title Page -->
+    <div id="page1" class="page">
+        <div class="project-title">
+            DATA VISUALIZATION CHALLANGE<br>
+            <span style="font-weight: 100;">HotelFlix</span>
+        </div>
+        <div class="dashboard-description">Roberta Berardo</div>
+        <div class="button-container">
+            <button class="button" onclick="showPage(2)">></button>
+        </div>
+    </div>
+
+    <!-- Page 2: Dashboard 1 -->
+    <div id="page2" class="page" style="display: none;">
+        <div class="page-title">UNDERSTANDING THE
+            SEASONALITY OF THE
+            BOOKINGS</div>
+        <div class="dashboard-description">Objective: HotelFlix aims to better
+            understand when their customers
+            make their reservations and increase
+            the revenue creating a price model
+            that increases the price of reservations
+            in high season and decreases in low
+            season.</div>
+        <div class="dashboard-container">
+            <div class="dashboard">
+                <div class="dashboard-title">Weekly Bookings by Country in 2016</div>
+                <div id="dashboard1-country"></div>
+            </div>
+            <div class="dashboard">
+                <div class="dashboard-title">Weekly Bookings by Year</div>
+                <div id="dashboard1"></div>
+                <div style="padding: 10px; max-width: 600px;">
+                    The weekly booking trends in Portugal show consistent reservations with peaks around weeks 20 and 42, likely due to summer holidays and early fall. The UK sees a steady increase in bookings peaking around week 30, aligning with summer holidays. France shows stable trends with peaks in late May and early October, influenced by holidays. Spain maintains steady bookings with spikes in late May and December, driven by weather and holidays. Germany experiences gradual increases, peaking in late May and mid-October, coinciding with holiday seasons and festivals.
+                </div>
+            </div>
+            <div class="dashboard" style="margin-left: 50px;">
+                <div class="border-text" style="max-width: 350px;">
+                    High Demand Periods: May (Weeks 19-21) and October (Weeks 40-42)<br><br>
+                    <span style="font-size: x-small;">The data indicates significant peaks in bookings around late May and mid-October, aligning with weeks 20 and 42. During these periods, the demand for reservations is at its highest, reflecting popular travel times such as spring and fall holidays. To maximize revenue, it would be strategic to implement higher pricing plans during these months. Special offers and packages tailored for these peak seasons can attract more bookings while justifying the increased rates.</span>
+                </div>
+                <div class="border-text" style="max-width: 350px;">
+                    Low Demand Periods: January to March (Weeks 1-12)<br><br>
+                    <span style="font-size: x-small;">The beginning of the year, spanning January through March, shows lower booking levels across all regions. This period typically experiences reduced travel activity post-holiday season and before the onset of spring. To stimulate demand during these months, introducing lower pricing plans, promotional deals, and targeted marketing campaigns can attract more customers. Emphasizing off-peak travel benefits, such as quieter tourist attractions and discounted rates, may encourage bookings during this slower season.</span>
+                </div>
+            </div>
+            <!-- <div class="dashboard">
+                <div class="dashboard-description">Description of Dashboard 3.</div>
+                <div id="dashboard1-test"></div>
+            </div> -->
+        </div>
+
+        <div class="button-container">
+            <button class="button" onclick="showPage(3)">></button>
+        </div>
+    </div>
+
+    <!-- Page 3: Dashboard 2 -->
+    <div id="page3" class="page" style="display: none;">
+        <div class="page-title">CREATING THE SHAPE OF THE FUTURES HOTEL PACKAGES</div>
+        <!-- <div class="dashboard-title">Dashboard 1 Title</div> -->
+        <div class="dashboard-description">Objective: Support HotelFlix
+            understanding the typical period of
+            time that the customers are in the
+            hotels to create attractive different day
+            packages. With this information
+            HotelFlix expects to attract 20% more
+            people to their hotels.</div>
+
+        <div class="dashboard-container">
+            <div class="dashboard">
+                <div class="dashboard-title">Relation between total stay and total people</div>
+                <div id="dashboard2"></div>
+            </div>
+            <div class="dashboard">
+                <div style="margin: 20px; max-width: 150px;">
+
+                    <div class="border-text">
+                        4 -5 days packages<br><br>
+                        <!-- <span style="font-size: small;">There is an opportunity for creating penalties por recurring cancellations.</span> -->
+                    </div>
+                    <div class="border-text">
+                        1 day package for business<br><br>
+                        <!-- <span style="font-size: small;">There is an opportunity for creating.</span> -->
+                    </div>
+                </div>
+                
+            </div>
+            <div class="dashboard">
+                <div class="dashboard-title">Seasonality</div>
+                <div id="dashboard2-mean-days-of-stay-month"></div>
+                <div class="border-text">
+                    Packages for July<br><br>
+                    <span style="font-size: small;">There is an opportunity for creating penalties por recurring cancellations, since 13% of the cancellations occur by clients that have a previous cancellations.</span>
+                </div>
+            </div>
+
+            <div class="dashboard">
+                <div class="dashboard-title">Business opportunity</div>
+                <div id="dashboard2-table"></div>
+                <div class="border-text" style="max-width: 600px;">
+                    Larger group stays<br><br>
+                    <span style="font-size: small;">HotelFlix has the potential to attract larger groups for various events at the Resort Hotel. Although this market segment currently represents a small percentage of overall bookings, it holds significant potential for revenue growth. By investing in targeted marketing and tailored event packages, HotelFlix can transform this opportunity into a substantial source of income.</span>
+                </div>    
+            </div>
+
+
+            <!-- <div>Pegar a distrbuição</div> TODO ver se eu vou pegar o dashboard --> 
+        </div>
+
+        <!--         
+        <div id="dashboard2"></div>
+        <div id="dashboard2-test"></div> -->
+
+        <div class="button-container">
+            <button class="button" onclick="showPage(4)">></button>
+        </div>
+    </div>
+
+    <!-- Page 4: Dashboard 3 -->
+    <div id="page4" class="page" style="display: none;">
+        <div class="page-title">COMPREHENDING THE CANCELLATION FOUNDATIONS</div>
+        <div class="dashboard-description">Objective: Establish a good cancellation policy for all the bookings based on
+            the past cancellations to help HotelFlix to save 25% of cancellations budget. Create different penalties for
+            cancellations for different groups of days until booking.</div>
+
+        <div class="dashboard-container">
+            <div class="dashboard">
+                <div class="dashboard-title">Distribution of Lead Times for Canceled Bookings</div>
+                <div id="dashboard3-distribution"></div>
+            </div>
+            <div class="dashboard">
+                <div class="dashboard-title">Distribution of Lead Times for Non-Canceled Bookings</div>
+                <div id="dashboard3-distribution-not-cancelled"></div>
+            </div>
+            <div>
+                <div class="dashboard-title">Percentage of canceled bookings<br>with previous cancellations</div>
+                <div id="dashboard3-previous-cancelations" style="margin-bottom: 40px;"></div>
+
+                <div class="dashboard-title">Median lead time for not canceled<br>bookings</div>
+                <div id="dashboard3-median-lead-time"></div>
+                
+                
+            </div>
+        </div>
+        <div class="dashboard-container">
+            <div class="border-text" style="border-color: #F5E726;">
+                0 - 7 DAYs: 90% Penalty<br><br>
+                <span style="font-size: small;">Bookings canceled within 0 to 7 days of the arrival date should incur a 90% penalty. This high penalty is necessary because the short notice leaves minimal time to refill the reservation, leading to a significant loss in potential revenue.</span>
+            </div>
+            <div class="border-text" style="border-color: #F8963F;">
+                8 - 45 DAYs: 60% Penalty<br><br>
+                <span style="font-size: small;">For bookings canceled between 8 and 45 days before arrival, a 60% penalty should be imposed. While there is more time to potentially rebook the room compared to the 0-7 day window, the loss in revenue remains substantial.</span>
+            </div>
+            <div class="border-text" style="border-color: #D7566C;">
+                46 - 90 DAYs: 25% Penalty<br><br>
+                <span style="font-size: small;">Cancellations made 46 to 90 days before arrival should be subject to a 25% penalty. The increased lead time allows for a better chance to rebook the room, thus minimizing the revenue loss.</span>
+            </div>
+            <div class="border-text" style="border-color: #8B09A4;">
+                FROM 91 DAYs: No penalty<br><br>
+                <span style="font-size: small;">For cancellations made more than 91 days before the arrival date, no penalty should be applied. The extended lead time provides ample opportunity to rebook the room, mitigating the impact of the cancellation.</span>
+            </div>
+            <div class="border-text">
+                Previous Cancellations<br><br>
+                <span style="font-size: small;">There is an opportunity to impose penalties for recurring cancellations, as 13% of cancellations are made by clients who have previously canceled.</span>
+            </div>
+        </div>
+        
+
+        <div class="button-container">
+            <button class="button" onclick="showPage(5)">></button>
+        </div>
+    </div>
+
+    <!-- Page 5: Dashboard 4 -->
+    <div id="page5" class="page" style="display: none;">
+        <div class="page-title">PREPARING THE IT SYSTEMS FOR THE DEMAND</div>
+    
+        <div class="dashboard-description">
+            Objective: HotelFlix wants to know when they will have peak demands in their booking system to provide a consistent solution without any interruption based on the past booking data that they have.
+        </div>
+    
+        <div class="dashboard-container">
+            <div class="dashboard">
+                <div id="dashboard4"></div>
+            </div>
+            <div class="dashboard">
+                <div id="dashboard4-distribution-not-cancelled"></div>
+                <div style="margin: 20px;">
+                    The chart illustrates the correlation between reservation months and arrival months, providing crucial insights for HotelFlix to anticipate peak demands in their booking system. Observing the data, we see significant booking activities between January 2016 and August 2017, with notable peaks in May and October. The right-side histogram shows that the majority of bookings are made within the first 50 days before the arrival date, indicating a high volume of short-term reservations.
+                    <br><br>
+                    To ensure a consistent booking experience without interruptions, it is essential to prepare the IT infrastructure for these peak periods. The data suggests the need for enhanced system capacity and robust performance management around May and October when the highest booking activities occur. Additionally, maintaining a reliable system throughout the year is vital, given the steady booking flow observed. By aligning IT resources and capabilities with these demand patterns, HotelFlix can optimize their system's performance, ensuring seamless service during both peak and off-peak times.
+                </div>
+                <div style="display: flex; font-size: small;">
+                    <div class="border-text" style="font-size: small; margin: 20px;">
+                        High IT demands in January
+                    </div>
+                    <div class="border-text" style="font-size: small; margin: 20px;">
+                        High IT demands 7 days before holiday and vacation
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="button-container">
+            <button class="button" onclick="showPage(6)">></button>
+        </div>
+    </div>
+    
+
+    <!-- Page 6: Final Page -->
+    <div id="page6" class="page" style="display: none;">
+        <div class="page-title">THANK YOU!</div>
+        <!-- <div class="dashboard-description">Detailed information: www</div> -->
+        <div class="button-container">
+            <button class="button" onclick="showPage(1)">Restart</button>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        // Function to show/hide pages based on the page number
+        function showPage(pageNum) {
+            for (let i = 1; i <= 6; i++) {
+                document.getElementById('page' + i).style.display = 'none';
+            }
+            document.getElementById('page' + pageNum).style.display = 'block';
+        }
+
+        var plotlyConfig = { "displayModeBar": false }
+
+        // Function to simulate loading dashboards (using Plotly for fake data)
+        function loadDashboards() {
+            // Example: Dashboard 1
+            Plotly.newPlot('dashboard1',
+                weekly_bookings_by_year.data,
+                weekly_bookings_by_year.layout,
+                plotlyConfig
+            );
+
+            // Plotly.newPlot('dashboard1-country2',
+            //     weekly_bookings_by_year.data,
+            //     weekly_bookings_by_year.layout,
+            //     plotlyConfig
+            // );
+
+            Plotly.newPlot('dashboard1-country',
+                weekly_bookings_by_country.data,
+                weekly_bookings_by_country.layout,
+                plotlyConfig
+            );
+
+            // Example: Dashboard 2
+            Plotly.newPlot('dashboard2',
+                relation_total_stay_total_people.data,
+                relation_total_stay_total_people.layout,
+                plotlyConfig
+            );
+
+            Plotly.newPlot('dashboard2-mean-days-of-stay-month',
+                mean_days_stay_month.data,
+                mean_days_stay_month.layout,
+                plotlyConfig
+            );
+
+            Plotly.newPlot('dashboard2-table', 
+                table_top_total_people.data,
+                table_top_total_people.layout,
+                plotlyConfig
+            )
+
+            Plotly.newPlot('dashboard3-distribution',
+                distribution_lead_time_cancelled_bookings.data,
+                distribution_lead_time_cancelled_bookings.layout,
+                plotlyConfig
+            );
+
+            Plotly.newPlot('dashboard3-distribution-not-cancelled',
+                distribution_lead_time_not_cancelled_bookings.data,
+                distribution_lead_time_not_cancelled_bookings.layout,
+                plotlyConfig
+            )
+
+            Plotly.newPlot('dashboard3-previous-cancelations',
+                previous_cancellations.data,
+                previous_cancellations.layout,
+                plotlyConfig
+            );
+
+            Plotly.newPlot('dashboard3-median-lead-time',
+                median_lead_time.data,
+                median_lead_time.layout,
+                plotlyConfig
+            );
+
+            // Example: Dashboard 4
+            Plotly.newPlot('dashboard4',
+                parallel_reservation_arrival.data,
+                parallel_reservation_arrival.layout,
+                plotlyConfig
+            );
+
+            Plotly.newPlot('dashboard4-distribution-not-cancelled',
+                distribution_lead_time_not_cancelled_bookings_long.data,
+                distribution_lead_time_not_cancelled_bookings_long.layout,
+                plotlyConfig 
+            )
+        }
+
+        // Load dashboards when the document is ready
+        document.addEventListener('DOMContentLoaded', function () {
+            loadDashboards();
+            showPage(1); // Show the initial page
+        });
+    </script>
+
+</body>
+
+</html>
