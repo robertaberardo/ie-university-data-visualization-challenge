@@ -191,38 +191,41 @@
 
         <div class="dashboard-container">
             <div class="dashboard">
-                <div class="dashboard-title">Relation between total stay and total people</div>
+                <div class="dashboard-title">Relationship between length of stay and number of customers</div>
                 <div id="dashboard2"></div>
             </div>
             <div class="dashboard">
-                <div style="margin: 20px; max-width: 150px;">
+                <div style="margin: 0px 20px; max-width: 300px;">
+                    <div class="dashboard-title">Proposed Packages</div>
 
                     <div class="border-text">
-                        4 -5 days packages<br><br>
-                        <!-- <span style="font-size: small;">There is an opportunity for creating penalties por recurring cancellations.</span> -->
+                        4 - 5 days packages<br><br>
+                        <span style="font-size: small;">
+                            The heatmap indicates a significant peak in reservations for stays of 2 to 3 days, particularly for groups of 2 to 3 people. However, there is a notable decline in bookings for stays longer than 4 days, suggesting an opportunity to promote longer stay packages to increase occupancy and revenue.</span>
                     </div>
                     <div class="border-text">
-                        1 day package for business<br><br>
-                        <!-- <span style="font-size: small;">There is an opportunity for creating.</span> -->
+                        2 day package for 1 person<br><br>
+                        <span style="font-size: small;">There is a noticeable trend of one-day stays at hotels, which may indicate business trips or similar engagements. Offering a two-day package could enhance the appeal of a two-day stay for this group without negatively impacting the typical two-day booking revenue.</span>
                     </div>
                 </div>
                 
             </div>
             <div class="dashboard">
-                <div class="dashboard-title">Seasonality</div>
+                <div class="dashboard-title">Seasonal Trends in Length of Stay</div>
                 <div id="dashboard2-mean-days-of-stay-month"></div>
-                <div class="border-text">
-                    Packages for July<br><br>
-                    <span style="font-size: small;">There is an opportunity for creating penalties por recurring cancellations, since 13% of the cancellations occur by clients that have a previous cancellations.</span>
+                <div class="border-text" style="max-width: 280px;">
+                    7 to 10 days packages in July<br><br>
+                    <span style="font-size: small;">The longest average length of stay (nearly 4 days) occurs in July, which is typically a vacation period. Offering packages for 7 to 10 days (with increasing discounts as the number of days increases) can encourage longer stays at the hotels.</span>
                 </div>
             </div>
 
             <div class="dashboard">
-                <div class="dashboard-title">Business opportunity</div>
+                <div class="dashboard-title">Larger group stays at Resort Hotel</div>
                 <div id="dashboard2-table"></div>
-                <div class="border-text" style="max-width: 600px;">
-                    Larger group stays<br><br>
-                    <span style="font-size: small;">HotelFlix has the potential to attract larger groups for various events at the Resort Hotel. Although this market segment currently represents a small percentage of overall bookings, it holds significant potential for revenue growth. By investing in targeted marketing and tailored event packages, HotelFlix can transform this opportunity into a substantial source of income.</span>
+
+                <div class="border-text" style="margin-top: 0px; max-width: 320px;">
+                    Business opportunity<br><br>
+                    <span style="font-size: small;">HotelFlix can attract larger groups for events at the Resort Hotel. Although currently a small market segment, it holds significant potential for revenue growth. Investing in targeted marketing and tailored event packages can transform this opportunity into a substantial income source.</span>
                 </div>    
             </div>
 
@@ -333,7 +336,6 @@
     <!-- Page 6: Final Page -->
     <div id="page6" class="page" style="display: none;">
         <div class="page-title">THANK YOU!</div>
-        <!-- <div class="dashboard-description">Detailed information: www</div> -->
         <div class="button-container">
             <button class="button" onclick="showPage(1)">Restart</button>
         </div>
@@ -353,20 +355,13 @@
 
         var plotlyConfig = { "displayModeBar": false }
 
-        // Function to simulate loading dashboards (using Plotly for fake data)
         function loadDashboards() {
-            // Example: Dashboard 1
+
             Plotly.newPlot('dashboard1',
                 weekly_bookings_by_year.data,
                 weekly_bookings_by_year.layout,
                 plotlyConfig
             );
-
-            // Plotly.newPlot('dashboard1-country2',
-            //     weekly_bookings_by_year.data,
-            //     weekly_bookings_by_year.layout,
-            //     plotlyConfig
-            // );
 
             Plotly.newPlot('dashboard1-country',
                 weekly_bookings_by_country.data,
@@ -374,7 +369,6 @@
                 plotlyConfig
             );
 
-            // Example: Dashboard 2
             Plotly.newPlot('dashboard2',
                 relation_total_stay_total_people.data,
                 relation_total_stay_total_people.layout,
@@ -417,7 +411,6 @@
                 plotlyConfig
             );
 
-            // Example: Dashboard 4
             Plotly.newPlot('dashboard4',
                 parallel_reservation_arrival.data,
                 parallel_reservation_arrival.layout,
@@ -434,7 +427,7 @@
         // Load dashboards when the document is ready
         document.addEventListener('DOMContentLoaded', function () {
             loadDashboards();
-            showPage(1); // Show the initial page
+            showPage(1);
         });
     </script>
 
